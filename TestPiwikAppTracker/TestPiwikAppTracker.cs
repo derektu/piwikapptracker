@@ -22,8 +22,8 @@ namespace TestPiwikAppTracker
 
             // TODO: 設定 使用者的資料 (as page custom variables)
             //
-            appTracker.setScreenCustomVariable(0, "OS", "Win7");
-            appTracker.setScreenCustomVariable(1, "AppVer", "5.50");
+            appTracker.setScreenCustomVariable(0, "Login.OS", "Win7");
+            appTracker.setScreenCustomVariable(1, "Login.AppVer", "5.50");
 
             appTracker.trackScreenView("/app/login", "login");
         }
@@ -36,8 +36,8 @@ namespace TestPiwikAppTracker
 
             // TODO: 設定 使用者的資料 (as page custom variables)
             //
-            appTracker.setScreenCustomVariable(0, "OS", "XP");
-            appTracker.setScreenCustomVariable(1, "AppVer", "5.40");
+            appTracker.setScreenCustomVariable(0, "Login.OS", "XP");
+            appTracker.setScreenCustomVariable(1, "Login.AppVer", "5.40");
 
             appTracker.trackScreenView("/app/login", "login");
         }
@@ -64,5 +64,24 @@ namespace TestPiwikAppTracker
             appTracker.trackEvent("Action", "最佳下單");
             appTracker.trackEvent("Action", "勾選下單");
         }
+
+        [TestMethod]
+        public void Test_trackPageCustomVariables()
+        {
+            var appTracker = new PiwikAppTracker(PiwikAppUrl, PiwikSiteId, AppDomain);
+            appTracker.setUserId("derektu8");
+
+            appTracker.setScreenCustomVariable(0, "Page.Via", "bookmark");
+            appTracker.trackScreenView("/syspage/大盤", "大盤");
+
+            appTracker.setScreenCustomVariable(0, "Page.Via", "id");
+            appTracker.trackScreenView("/syspage/個股走勢", "個股走勢");
+
+            appTracker.setScreenCustomVariable(0, "Trade.Source", "統一");
+            appTracker.setScreenCustomVariable(1, "Trade.ID", "2330.TW");
+            appTracker.setScreenCustomVariable(2, "Trade.Via", "下單bar");
+            appTracker.trackScreenView("/app/trade/stock", "證劵下單");
+        }
+
     }
 }
