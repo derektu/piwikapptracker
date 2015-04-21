@@ -209,17 +209,6 @@ namespace Piwik.AppTracker
             return set(QueryParams.SCREEN_RESOLUTION, value);
         }
 
-        public string getResolution()
-        {
-            var value = get(QueryParams.SCREEN_RESOLUTION);
-            if (!String.IsNullOrEmpty(value))
-                return value;
-
-            // TODO: get device's width/height ?
-            //
-            return "unknown";
-        }
-
         /// <summary>
         /// Set user's custom variables. 
         /// 這個是'global scope', 用來定義擴充欄位. 最多只能有5個 (index=0..4).
@@ -414,7 +403,6 @@ namespace Piwik.AppTracker
             set(QueryParams.SITE_ID, m_siteId);
             set(QueryParams.RECORD, RECORD_VALUE);
             set(QueryParams.RANDOM_NUMBER, m_rnd.Next(100000));
-            set(QueryParams.SCREEN_RESOLUTION, getResolution());
 
             var url = getUrl();
             if (!String.IsNullOrEmpty(url))
